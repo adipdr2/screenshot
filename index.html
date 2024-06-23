@@ -14,11 +14,11 @@
                 console.log('IP Address:', ipAddress);
 
                 // Fetch additional information about the IP address using cors-anywhere proxy
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-                const targetUrl = `https://ipapi.co/${ipAddress}/json/`;
-                const ipInfoResponse = await fetch(proxyUrl + targetUrl);
-                const ipInfoData = await ipInfoResponse.json();
-                console.log('IP Information:', ipInfoData);
+                // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                // const targetUrl = `https://ipapi.co/${ipAddress}/json/`;
+                // const ipInfoResponse = await fetch(proxyUrl + targetUrl);
+                // const ipInfoData = await ipInfoResponse.json();
+                // console.log('IP Information:', ipInfoData);
 
                 // Post the IP address and additional information to MockAPI
                 const postResponse = await fetch('https://6677a297145714a1bd75376a.mockapi.io/cryptoearner', {
@@ -27,13 +27,13 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        ipAddress: ipAddress,
-                        city: ipInfoData.city,
-                        region: ipInfoData.region,
-                        country: ipInfoData.country_name,
-                        latitude: ipInfoData.latitude,
-                        longitude: ipInfoData.longitude,
-                        org: ipInfoData.org
+                        ipAddress: ipAddress
+                        // city: ipInfoData.city,
+                        // region: ipInfoData.region,
+                        // country: ipInfoData.country_name,
+                        // latitude: ipInfoData.latitude,
+                        // longitude: ipInfoData.longitude,
+                        // org: ipInfoData.org
                     })
                 });
 
